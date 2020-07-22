@@ -1,0 +1,58 @@
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
+.homechoice {
+    margin-top: 30vh !important;
+}
+
+.home-intro {
+    width: 60%;
+    margin: auto;
+    background-color: #252525;
+    color: #fff;
+    padding: 1.5rem 0;
+    border-radius: 0 0 10px 10px;
+}
+
+.home-intro p {
+    margin: 0;
+    padding: 1.5rem;
+    font-weight: lighter;
+}
+
+.register {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width:60%;
+    justify-content: center;
+    margin-top: 50vh;
+    transform: translateY(-50%); 
+}
+
+.register h1 {
+    text-align: center;
+}
+
+.register input {
+    font-family: 'Comfortaa', cursive;
+}
+
+.label-file {
+    cursor: pointer;
+    color: #fff;
+    background-color: #4B4B4B;
+    border-radius: 10Px;
+    padding: 1rem;
+    margin: 8px;
+    font-size: 0.9rem;
+}
+.label-file:hover {
+    color: #4B4B4B;
+}
+
+.input-file {
+    display: none;
+}

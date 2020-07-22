@@ -1,8 +1,10 @@
 body {
   margin: 0;
   font-family: 'Comfortaa', cursive;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  outline: none;
+  color: #252525;
+  scroll-behavior: smooth;
 }
 
 code {

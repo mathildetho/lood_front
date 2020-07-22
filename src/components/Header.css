@@ -1,0 +1,11 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height:10vh;
+}
+
+.header img {
+    width: 2rem;
+    object-fit: contain;
+}
