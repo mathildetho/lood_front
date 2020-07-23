@@ -9,3 +9,9 @@
     width: 2rem;
     object-fit: contain;
 }
+
+@media screen and (min-width: 600px) {
+    .header img {
+        width: 2.5rem;
+    }
+}

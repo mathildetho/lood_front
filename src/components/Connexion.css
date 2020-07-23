@@ -56,3 +56,21 @@
 .input-file {
     display: none;
 }
+
+@media screen and (min-width: 600px) {
+    .home-intro, .register {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .home-intro, .register {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    .home-intro, .register {
+        width: 25%;
+    }
+}

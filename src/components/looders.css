@@ -37,3 +37,34 @@
     width: 60%;
     margin: auto;
 }
+
+@media screen and (min-width: 600px) {
+    .looders-container .nothing, .looders-content  {
+        width: 50%;
+    }
+    .looder_img img {
+        height: 22vh;
+    }
+    .looder_img {
+        height: 26vh;
+    }
+}
+
+@media screen and (min-width: 860px) {
+    .looder_img img {
+        height: 25vh;
+    }
+    .looder_img {
+        height: 28vh;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .looder_img img {
+        height: 28vh;
+    }
+    .looder_img {
+        height: 31vh;
+    }
+}
+

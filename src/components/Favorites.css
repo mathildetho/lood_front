@@ -63,3 +63,22 @@
     margin: 0;
     margin-top: 0.5rem;
 }
+
+
+@media screen and (min-width: 600px) {
+    .favorites-content {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .favorites-content {
+        width: 30%;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    .favorites-content {
+        width: 25%;
+    }
+}
