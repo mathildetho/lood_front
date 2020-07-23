@@ -75,7 +75,7 @@ const Looders = ({ profil }) => {
                     Vous n'avez pas de favoris en commun avec des looders.
                 </p>
             )}
-            <Footer name="Tes looders" />
+            <Footer name="tes looders" />
         </div>
     );
 };

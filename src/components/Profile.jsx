@@ -73,7 +73,7 @@ const Profil = ({ profil }) => {
                     <p>loading</p>
                 )}
             </div>
-            <Footer name="Ton profil" />
+            <Footer name="ton profil" />
         </>
     );
 };

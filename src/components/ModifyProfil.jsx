@@ -203,7 +203,7 @@ const ModifyProfil = ({ updateUser, login, profil, history }) => {
                     <p>loading</p>
                 )}
             </div>
-            <Footer name="Modifier ton profil" />
+            <Footer name="modifier ton profil" />
         </>
     );
 };

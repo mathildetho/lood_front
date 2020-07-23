@@ -7,9 +7,12 @@ import Header from "./Header";
 import axios from "axios";
 import Footer from "./Footer";
 import "./Looder.css";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Looder = (props) => {
-    const useStyles = makeStyles((theme) => ({
+    const {profil} = props;
+    const useStyles = makeStyles(() => ({
         Button: {
             fontFamily: "Comfortaa",
             borderRadius: "10px",
@@ -46,13 +49,16 @@ const Looder = (props) => {
             <div className="profile">
                 {looder ? (
                     <>
-                        <Button
-                            className={classes.Button}
-                            variant="contained"
-                            color="primary"
-                        >
-                            Envoyer un message
-                        </Button>
+                        {profil && <Link to={`/chat?pseudo=${profil.pseudo}&room=${looder.id+profil.id}`}>
+                            <Button
+                                className={classes.Button}
+                                variant="contained"
+                                color="primary"
+                                href="/chat"
+                            >
+                                Envoyer un message
+                            </Button>
+                        </Link>}
                         <img src={looder.image} alt={looder.pseudo} />
                         {looder.sexe === 1 ? <p>femme</p> : <p>homme</p>}
                         <p>{looder.description}</p>
@@ -81,4 +87,11 @@ const Looder = (props) => {
     );
 };
 
-export default Looder;
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.auth.isAuthenticated,
+        profil: state.auth.user && state.auth.user.authdata.result && state.auth.user.authdata.result[0],
+    };
+};
+
+export default connect(mapStateToProps, null)(Looder);

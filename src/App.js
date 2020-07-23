@@ -12,6 +12,8 @@ import Looders from "./components/Looders";
 import Looder from "./components/Looder";
 import ModifyProfil from "./components/ModifyProfil";
 
+import Chat from './components/Chat';
+
 function App() {
     return (
         <div className="App">
@@ -25,6 +27,7 @@ function App() {
                 <PrivateRoute path="/looders/:id" component={Looder} />
                 <PrivateRoute path="/questions/:id" component={Favorites} />
                 <PrivateRoute path="/profil/modify" component={ModifyProfil} />
+                <PrivateRoute path="/chat" component={Chat} />
             </Switch>
         </div>
     );
