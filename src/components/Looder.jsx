@@ -1,15 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import "./Connexion.css";
-import { connect } from "react-redux";
-import "./Welcome.css";
-import Header from "./Header";
-import "./Profile.css";
-import Footer from "./Footer";
-import axios from "axios";
+import "./Favorites.css";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import Header from "./Header";
+import axios from "axios";
+import Footer from "./Footer";
+import "./Looder.css";
 
-const Profil = ({ profil }) => {
+const Looder = (props) => {
     const useStyles = makeStyles((theme) => ({
         Button: {
             fontFamily: "Comfortaa",
@@ -26,36 +25,40 @@ const Profil = ({ profil }) => {
 
     const classes = useStyles();
 
+    const looderId = props.match.params.id;
+    const [looder, setLooder] = useState({});
     const [foods, setFoods] = useState([]);
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/api/users/${profil && profil.id}/foods`)
+            .get(`http://localhost:5000/api/users/${looderId}`)
+            .then((res) => res.data[0])
+            .then((data) => setLooder(data));
+        axios
+            .get(`http://localhost:5000/api/users/${looderId}/foods`)
             .then((res) => res.data)
             .then((data) => setFoods(data));
-    }, [profil]);
+    }, [looderId]);
 
     return (
-        <>
+        <div className="looders-container">
             <Header />
             <div className="profile">
-                {profil ? (
+                {looder ? (
                     <>
                         <Button
                             className={classes.Button}
                             variant="contained"
                             color="primary"
-                            href='/profil/modify'
                         >
-                            Modifier
+                            Envoyer un message
                         </Button>
-                        <img src={profil.image} alt={profil.pseudo} />
-                        <p>{profil.pseudo}</p>
-                        {profil.sexe === 1 ? <p>femme</p> : <p>homme</p>}
-                        <p>{profil.description}</p>
+                        <img src={looder.image} alt={looder.pseudo} />
+                        {looder.sexe === 1 ? <p>femme</p> : <p>homme</p>}
+                        <p>{looder.description}</p>
                         {foods.length > 0 && (
                             <>
-                                <h3>Tes plats favoris</h3>
+                                <h3>Ses plats favoris</h3>
                                 <div className="favorites-food">
                                     {foods.map((food) => (
                                         <img
@@ -73,19 +76,9 @@ const Profil = ({ profil }) => {
                     <p>loading</p>
                 )}
             </div>
-            <Footer name="Ton profil" />
-        </>
+            <Footer name={looder ? looder.pseudo : looder} />
+        </div>
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        isAuthenticated: state.auth.isAuthenticated,
-        profil:
-            state.auth.user.authdata &&
-            state.auth.user.authdata.result &&
-            state.auth.user.authdata.result[0],
-    };
-};
-
-export default connect(mapStateToProps, null)(Profil);
+export default Looder;

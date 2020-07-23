@@ -10,6 +10,8 @@ const Favorites = (props) => {
     const [food, setFood] = useState({});
     const [foods, setFoods] = useState([]);
     const [lengthFood, setLength] = useState(1);
+    const [foodUser, setFoodUser] = useState([]);
+    const [noFoodUser, setNoFoodUser] = useState([]);
 
     const idfood = props.match.params.id;
 
@@ -35,18 +37,47 @@ const Favorites = (props) => {
         setLength(foods.length);
     }, [foods]);
 
+    useEffect(() => {
+        // if jointure favorite food-user exist
+        Axios.get(
+            `http://localhost:5000/api/users/${userInfo.id}/foods`
+        ).then((res) => setFoodUser(res.data));
+        // if jointure non favorite food-user exist
+        Axios.get(
+            `http://localhost:5000/api/users/${userInfo.id}/foods/no`
+        ).then((res) => setNoFoodUser(res.data));
+    }, [userInfo]);
+
     const handleClickNo = () => {
+        if (foodUser.id === idfood) {
+            //delete jointure favorite food-user if exist
+            Axios.delete(
+                `http://localhost:5000/api/foods/${idfood}/${userInfo.id}`
+            ).then((res) => res.data);
+        }
+        // create jointure no favorite food - user
+        Axios.post(
+            `http://localhost:5000/api/foods/${idfood}/${userInfo.id}/no`
+        ).then((res) => res.data);
+
         Number(idfood) === lengthFood
-            ? props.history.push("/home")
+            ? props.history.push("/looders")
             : props.history.push(`/questions/${Number(idfood) + 1}`);
     };
 
     const handleClickYes = () => {
+        if (noFoodUser.id === idfood) {
+            //delete jointure no favorite food-user if exist
+            Axios.delete(
+                `http://localhost:5000/api/foods/${idfood}/${userInfo.id}/no`
+            ).then((res) => res.data);
+        }
+        // create jointure favorite food - user
         Axios.post(
             `http://localhost:5000/api/foods/${idfood}/${userInfo.id}`
         ).then((res) => res.data);
         Number(idfood) === lengthFood
-            ? props.history.push("/home")
+            ? props.history.push("/looders")
             : props.history.push(`/questions/${Number(idfood) + 1}`);
     };
 

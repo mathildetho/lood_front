@@ -9,6 +9,8 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Profile from "./components/Profile";
 import Favorites from "./components/Favorites";
 import Looders from "./components/Looders";
+import Looder from "./components/Looder";
+import ModifyProfil from "./components/ModifyProfil";
 
 function App() {
     return (
@@ -18,9 +20,11 @@ function App() {
                 <Route path="/inscription" component={Register} exact />
                 <Route path="/connexion" component={Connexion} exact />
                 <PrivateRoute path="/home" component={Welcome} />
-                <PrivateRoute path="/profil" component={Profile} />
-                <PrivateRoute path="/looders" component={Looders} />
+                <PrivateRoute path="/profil" component={Profile} exact />
+                <PrivateRoute path="/looders" component={Looders} exact/>
+                <PrivateRoute path="/looders/:id" component={Looder} />
                 <PrivateRoute path="/questions/:id" component={Favorites} />
+                <PrivateRoute path="/profil/modify" component={ModifyProfil} />
             </Switch>
         </div>
     );

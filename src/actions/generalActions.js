@@ -1,98 +1,98 @@
-import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import * as actionTypes from "./actionTypes";
+import axios from "axios";
 
 /* authentification USER*/
 // Check token & load client
-export const loadUser = (pseudo, password) => (dispatch, getState) => {
-  // User loading
-  dispatch({ type: actionTypes.USER_LOADING });
-  // Request body
-  const body = JSON.stringify(pseudo, password);
-  axios
-    .post('http://localhost:5000/api/users/profile', body, tokenConfig(getState))
-    .then(res =>
-      dispatch({
-        type: actionTypes.USER_LOADED,
-        payload: res.data
-      })
-    )
-    .catch(err => {
-      console.log(err)
-    });
+export const loadUser = (token) => (dispatch) => {
+    // User loading
+    dispatch({ type: actionTypes.USER_LOADING });
+
+    axios
+        .post("http://localhost:5000/api/users/profile", null, {
+            headers: {
+                Authorization: `Basic ${token}`,
+            },
+        })
+        .then((res) =>
+            dispatch({
+                type: actionTypes.USER_LOADED,
+                payload: res.data,
+            })
+        )
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 // Register User (creation)
-export const register = (pseudo, image, description, password, sexe) => (dispatch) => {
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  // Request body
-  const body = JSON.stringify(pseudo, image, description, password, sexe);
-  axios
-    .post('http://localhost:5000/api/users', body, config)
-    .then(res =>
-      dispatch({
-        type: actionTypes.REGISTER_SUCCESS,
-        payload: res.data
-      })
-    )
-    .catch(err => {
-      console.log(err)
-    });
+export const register = (pseudo, image, description, password, sexe) => (
+    dispatch
+) => {
+    // Headers
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    // Request body
+    const body = JSON.stringify(pseudo, image, description, password, sexe);
+    axios
+        .post("http://localhost:5000/api/users", body, config)
+        .then((res) =>
+            dispatch({
+                type: actionTypes.REGISTER_SUCCESS,
+                payload: res.data,
+            })
+        )
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 // Login User
 export const login = (pseudo, password) => (dispatch) => {
-  // Headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  // Request body
-  const body = JSON.stringify(pseudo, password);
-  axios
-    .post('http://localhost:5000/api/users/login', body, config)
-    .then(res =>
-      dispatch({
-        type: actionTypes.LOGIN_SUCCESS,
-        payload: res.data
-      })
-
-    )
-    .catch(err => {
-      console.log(err)
-    });
+    // Headers
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    // Request body
+    const body = JSON.stringify(pseudo, password);
+    axios
+        .post("http://localhost:5000/api/users/login", body, config)
+        .then((res) =>
+            dispatch({
+                type: actionTypes.LOGIN_SUCCESS,
+                payload: res.data,
+            })
+        )
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 // Logout User
 export const logout = () => {
-  return {
-    type: actionTypes.LOGOUT_SUCCESS
-  };
+    return {
+        type: actionTypes.LOGOUT_SUCCESS,
+    };
 };
 
-// Setup config/headers and token
-export const tokenConfig = (getState) => {
-  // Get token from localstorage
-  const {token} = getState().auth;
-
-  // Headers
-  const config = {
-    headers: {
-      'Content-type': 'application/json',
-      Authorization: "Bearer " + token
-
-    }
-  };
-
-  // If token, add to headers
-  if (token) {
-    config.headers['x-auth-token'] = token;
-  }
-
-  return config;
+// update data client
+export const updateUser = (id, clientNewInfo) => (dispatch) => {
+    // body
+    axios
+        .put(`http://localhost:5000/api/users/${id}`, clientNewInfo)
+        .then(() => {
+            dispatch({
+                type: actionTypes.USER_MODIFY,
+                clientNewInfo,
+            });
+        })
+        .catch((err) => {
+            dispatch({
+                type: actionTypes.AUTH_ERROR,
+            });
+        });
 };

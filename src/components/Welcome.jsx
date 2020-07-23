@@ -8,7 +8,7 @@ import { loadUser, logout } from "../actions/generalActions";
 import "./Welcome.css";
 import Header from "./Header";
 
-const Welcome = ({ loadUser, logout, user, profil }) => {
+const Welcome = ({ loadUser, logout, profil }) => {
     const useStyles = makeStyles(() => ({
         Button: {
             fontFamily: "Comfortaa",
@@ -33,11 +33,11 @@ const Welcome = ({ loadUser, logout, user, profil }) => {
         },
     }));
 
-    const classes = useStyles();
-
     useEffect(() => {
-        loadUser(user);
-    }, [loadUser, user]);
+        loadUser(localStorage.getItem('token'));
+    }, [loadUser]);
+
+    const classes = useStyles();
 
     let profilInfo;
     if (profil) {

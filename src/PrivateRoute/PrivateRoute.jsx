@@ -1,14 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Route, Redirect} from 'react-router-dom';
+import { loadUser } from "../actions/generalActions";
 import { connect } from "react-redux";
 
 const PrivateRoute = ({
     path,
     component: Component,
-  	isAuthenticated,
-}) => (
-    isAuthenticated ? <Route path={path} component={Component} /> : <Redirect to="/connexion" />
-);
+    isAuthenticated,
+    loadUser
+}) => {
+    useEffect(() => {
+        loadUser(localStorage.getItem('token'));
+    }, [loadUser]);
+
+    if(!isAuthenticated && isAuthenticated !== null) {
+        return <Redirect to="/connexion" />
+    }
+
+    return (
+    <Route path={path} component={Component} />
+)};
 
 const mapStateToProps = (state) => {
     return {
@@ -16,4 +27,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, null)(PrivateRoute);
+export default connect(mapStateToProps, {loadUser})(PrivateRoute);

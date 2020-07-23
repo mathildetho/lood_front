@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { register } from "../actions/generalActions";
 import { Link } from "react-router-dom";
 
-const Register = ({ register }) => {
+const Register = ({ register, history }) => {
     const useStyles = makeStyles((theme) => ({
         Button: {
             fontFamily: "Comfortaa",
@@ -119,11 +119,15 @@ const Register = ({ register }) => {
                 })
             )
             .catch((err) => console.log(err));
+
+        history.push('/connexion');
     };
 
     return (
         <div className="register">
-            <Link to="/"><h1>lood</h1></Link>
+            <Link to="/">
+                <h1>lood</h1>
+            </Link>
             <label htmlFor="file" className="label-file">
                 Choisir une image
             </label>
@@ -194,16 +198,14 @@ const Register = ({ register }) => {
                 variant="filled"
                 className={classes.root}
             />
-            <Link to="/connexion">
-                <Button
-                    className={classes.Button}
-                    variant="contained"
-                    color="primary"
-                    onClick={createUser}
-                >
-                    Créer
-                </Button>
-            </Link>
+            <Button
+                className={classes.Button}
+                variant="contained"
+                color="primary"
+                onClick={createUser}
+            >
+                Créer
+            </Button>
         </div>
     );
 };
