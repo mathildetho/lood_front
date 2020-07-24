@@ -8,7 +8,7 @@ export const loadUser = (token) => (dispatch) => {
     dispatch({ type: actionTypes.USER_LOADING });
 
     axios
-        .post("http://localhost:5000/api/users/profile", null, {
+        .post(`${process.env.REACT_APP_LOCALHOST}/users/profile`, null, {
             headers: {
                 Authorization: `Basic ${token}`,
             },
@@ -37,7 +37,7 @@ export const register = (pseudo, image, description, password, sexe) => (
     // Request body
     const body = JSON.stringify(pseudo, image, description, password, sexe);
     axios
-        .post("http://localhost:5000/api/users", body, config)
+        .post(`${process.env.REACT_APP_LOCALHOST}/users`, body, config)
         .then((res) =>
             dispatch({
                 type: actionTypes.REGISTER_SUCCESS,
@@ -60,7 +60,7 @@ export const login = (pseudo, password) => (dispatch) => {
     // Request body
     const body = JSON.stringify(pseudo, password);
     axios
-        .post("http://localhost:5000/api/users/login", body, config)
+        .post(`${process.env.REACT_APP_LOCALHOST}/users/login`, body, config)
         .then((res) =>
             dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
@@ -83,7 +83,7 @@ export const logout = () => {
 export const updateUser = (id, clientNewInfo) => (dispatch) => {
     // body
     axios
-        .put(`http://localhost:5000/api/users/${id}`, clientNewInfo)
+        .put(`${process.env.REACT_APP_LOCALHOST}/users/${id}`, clientNewInfo)
         .then(() => {
             dispatch({
                 type: actionTypes.USER_MODIFY,

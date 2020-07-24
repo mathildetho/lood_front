@@ -30,7 +30,7 @@ const Profil = ({ profil }) => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/api/users/${profil && profil.id}/foods`)
+            .get(`${process.env.REACT_APP_LOCALHOST}/users/${profil && profil.id}/foods`)
             .then((res) => res.data)
             .then((data) => setFoods(data));
     }, [profil]);

@@ -22,13 +22,13 @@ const Favorites = (props) => {
     }
 
     useEffect(() => {
-        Axios.get(`http://localhost:5000/api/foods`)
+        Axios.get(`${process.env.REACT_APP_LOCALHOST}/foods`)
             .then((res) => res.data)
             .then((data) => setFoods(data));
     }, []);
 
     useEffect(() => {
-        Axios.get(`http://localhost:5000/api/foods/${idfood}`)
+        Axios.get(`${process.env.REACT_APP_LOCALHOST}/foods/${idfood}`)
             .then((res) => res.data[0])
             .then((data) => setFood(data));
     }, [idfood]);
@@ -40,11 +40,11 @@ const Favorites = (props) => {
     useEffect(() => {
         // if jointure favorite food-user exist
         Axios.get(
-            `http://localhost:5000/api/users/${userInfo.id}/foods`
+            `${process.env.REACT_APP_LOCALHOST}/users/${userInfo.id}/foods`
         ).then((res) => setFoodUser(res.data));
         // if jointure non favorite food-user exist
         Axios.get(
-            `http://localhost:5000/api/users/${userInfo.id}/foods/no`
+            `${process.env.REACT_APP_LOCALHOST}/users/${userInfo.id}/foods/no`
         ).then((res) => setNoFoodUser(res.data));
     }, [userInfo]);
 
@@ -52,12 +52,12 @@ const Favorites = (props) => {
         if (foodUser.id === idfood) {
             //delete jointure favorite food-user if exist
             Axios.delete(
-                `http://localhost:5000/api/foods/${idfood}/${userInfo.id}`
+                `${process.env.REACT_APP_LOCALHOST}/foods/${idfood}/${userInfo.id}`
             ).then((res) => res.data);
         }
         // create jointure no favorite food - user
         Axios.post(
-            `http://localhost:5000/api/foods/${idfood}/${userInfo.id}/no`
+            `${process.env.REACT_APP_LOCALHOST}/foods/${idfood}/${userInfo.id}/no`
         ).then((res) => res.data);
 
         Number(idfood) === lengthFood
@@ -69,12 +69,12 @@ const Favorites = (props) => {
         if (noFoodUser.id === idfood) {
             //delete jointure no favorite food-user if exist
             Axios.delete(
-                `http://localhost:5000/api/foods/${idfood}/${userInfo.id}/no`
+                `${process.env.REACT_APP_LOCALHOST}/foods/${idfood}/${userInfo.id}/no`
             ).then((res) => res.data);
         }
         // create jointure favorite food - user
         Axios.post(
-            `http://localhost:5000/api/foods/${idfood}/${userInfo.id}`
+            `${process.env.REACT_APP_LOCALHOST}/foods/${idfood}/${userInfo.id}`
         ).then((res) => res.data);
         Number(idfood) === lengthFood
             ? props.history.push("/looders")

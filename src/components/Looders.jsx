@@ -15,7 +15,7 @@ const Looders = ({ profil }) => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/api/users/${profil && profil.id}/foods`)
+            .get(`${process.env.REACT_APP_LOCALHOST}/users/${profil && profil.id}/foods`)
             .then((res) => res.data)
             .then((data) => setFoods(data));
     }, [profil]);
@@ -27,7 +27,7 @@ const Looders = ({ profil }) => {
     const handleFoodCommon = (foods) => {
         foods.map((food) =>
             axios
-                .get(`http://localhost:5000/api/foods/${food.id}/users`)
+                .get(`${process.env.REACT_APP_LOCALHOST}/foods/${food.id}/users`)
                 .then((res) => res.data)
                 .then((data) => handleSameFood(data))
         );
@@ -37,7 +37,7 @@ const Looders = ({ profil }) => {
         const listUsers = [];
         allUsers.map((userId) =>
             axios
-                .get(`http://localhost:5000/api/users/${userId}`)
+                .get(`${process.env.REACT_APP_LOCALHOST}/users/${userId}`)
                 .then((res) => res.data[0])
                 .then(
                     (data) =>

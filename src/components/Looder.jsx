@@ -34,11 +34,11 @@ const Looder = (props) => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/api/users/${looderId}`)
+            .get(`${process.env.REACT_APP_LOCALHOST}/users/${looderId}`)
             .then((res) => res.data[0])
             .then((data) => setLooder(data));
         axios
-            .get(`http://localhost:5000/api/users/${looderId}/foods`)
+            .get(`${process.env.REACT_APP_LOCALHOST}/users/${looderId}/foods`)
             .then((res) => res.data)
             .then((data) => setFoods(data));
     }, [looderId]);
