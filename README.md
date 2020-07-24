@@ -1,3 +1,12 @@
+
+## lood
+Rencontre ton âme sœur de la food !
+
+## Introduction
+Front : React, Material-ui, Redux Back : Node.JS, Express, Socket.io
+Setup:
+run npm i && npm start for both front and back side to start the development server
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
