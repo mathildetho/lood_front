@@ -12,7 +12,7 @@ import Looders from "./components/Looders";
 import Looder from "./components/Looder";
 import ModifyProfil from "./components/ModifyProfil";
 
-import Chat from './components/Chat';
+import Chat from './components/Chat/Chat';
 
 function App() {
     return (

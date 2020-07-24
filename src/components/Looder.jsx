@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const Looder = (props) => {
-    const {profil} = props;
+    const { profil } = props;
     const useStyles = makeStyles(() => ({
         Button: {
             fontFamily: "Comfortaa",
@@ -43,22 +43,32 @@ const Looder = (props) => {
             .then((data) => setFoods(data));
     }, [looderId]);
 
+    console.log(looder)
     return (
         <div className="looders-container">
             <Header />
             <div className="profile">
                 {looder ? (
                     <>
-                        {profil && <Link to={`/chat?pseudo=${profil.pseudo}&room=${looder.id+profil.id}`}>
-                            <Button
-                                className={classes.Button}
-                                variant="contained"
-                                color="primary"
-                                href="/chat"
+                        {profil && (
+                            <Link
+                                to={{
+                                    pathname: `/chat?pseudo=${
+                                        profil.pseudo
+                                    }&room=room${looder.id + profil.id}`,
+                                    state: looder,
+                                }}
                             >
-                                Envoyer un message
-                            </Button>
-                        </Link>}
+                                <Button
+                                    className={classes.Button}
+                                    variant="contained"
+                                    color="primary"
+                                    href="/chat"
+                                >
+                                    Envoyer un message
+                                </Button>
+                            </Link>
+                        )}
                         <img src={looder.image} alt={looder.pseudo} />
                         {looder.sexe === 1 ? <p>femme</p> : <p>homme</p>}
                         <p>{looder.description}</p>
@@ -90,7 +100,10 @@ const Looder = (props) => {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        profil: state.auth.user && state.auth.user.authdata.result && state.auth.user.authdata.result[0],
+        profil:
+            state.auth.user &&
+            state.auth.user.authdata.result &&
+            state.auth.user.authdata.result[0],
     };
 };
 

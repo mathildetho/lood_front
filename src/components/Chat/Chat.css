@@ -1,0 +1,17 @@
+.outerContainer {
+    display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+    height: 100vh;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #FFFFFF;
+    border: 0.1rem solid #252525;
+    border-radius: 10px;
+    height: 70%;
+    width: 90%;
+  }
