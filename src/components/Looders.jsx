@@ -35,18 +35,23 @@ const Looders = ({ profil }) => {
 
     useEffect(() => {
         const listUsers = [];
-        allUsers.map(userId => axios
-            .get(`http://localhost:5000/api/users/${userId}`)
-            .then((res) => res.data[0])
-            .then((data) => listUsers.push(data) && setSames(listUsers))
-        )
-    }, [allUsers])
-
+        allUsers.map((userId) =>
+            axios
+                .get(`http://localhost:5000/api/users/${userId}`)
+                .then((res) => res.data[0])
+                .then(
+                    (data) =>
+                        listUsers.push(data) &&
+                        listUsers.filter((user) => user.sexe !== profil.sexe) &&
+                        setSames(listUsers.filter((user) => user.sexe !== profil.sexe))
+                )
+        );
+    }, [allUsers]);
 
     const handleSameFood = (data) => {
-        data.filter(
-            (user) => user.id !== profil.id 
-        ).map((user) => allUsers.push(user.id));
+        data.filter((user) => user.id !== profil.id).map((user) =>
+            allUsers.push(user.id)
+        );
 
         let sameUsers = [...new Set(allUsers)];
         setUsers(sameUsers);
@@ -63,7 +68,11 @@ const Looders = ({ profil }) => {
                     <div className="looders">
                         {sames.length > 0 &&
                             sames.map((user) => (
-                                <Link to={`/looders/${user.id}`} key={user.id} className="looder_img">
+                                <Link
+                                    to={`/looders/${user.id}`}
+                                    key={user.id}
+                                    className="looder_img"
+                                >
                                     <img src={user.image} alt={user.pseudo} />
                                     <p>{user.pseudo}</p>
                                 </Link>
@@ -83,7 +92,10 @@ const Looders = ({ profil }) => {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.isAuthenticated,
-        profil: state.auth.user.authdata && state.auth.user.authdata.result && state.auth.user.authdata.result[0],
+        profil:
+            state.auth.user.authdata &&
+            state.auth.user.authdata.result &&
+            state.auth.user.authdata.result[0],
     };
 };
 
